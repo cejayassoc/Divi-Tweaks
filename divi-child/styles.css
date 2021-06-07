@@ -1,0 +1,107 @@
+/*
+Theme Name: Wellbeing Acupuncture
+Description: Theme for Wellbeing Acupuncture
+Author: CeJay Associates, LLC
+Author URI: https://cejayassoc.com
+Template: Divi
+Version: 2.0
+*/
+
+/* RESPONSIVE HEADER FIX DIVI 3.x.x */
+
+@media screen and (min-width:980px) and (max-width: 1226px) 
+{ 
+ #logo { max-width: 50% !important;}
+ #top-menu-navigation {max-width: 90%;}
+ .et_header_style_left #et-top-navigation nav > ul > li > a {padding-bottom: 15px;}
+}
+@media screen and (max-width: 980px){
+	.et_mobile_menu li a {
+    padding: 7px 5%;
+    display: block;
+		font-size: 17px;
+	background-color: #ffffff;}
+	.et_pb_row{width: 95% !important;}
+}
+@media only screen and (max-width: 428px) {
+	.et_header_style_left #logo {max-width: 80%;}
+	.container {width: 96% !important;}	
+	.container.clearfix.et_menu_container {
+margin-left: 2%;		
+}
+}
+/* Safari Responsive Header Fix */
+@media screen and (max-width: 1050px) {
+#logo {
+    width: 20%!important;
+}
+}
+@media screen and (max-width: 1350px) and (min-width: 980px) {
+#logo {
+    width: 20%!important;
+}
+#et-top-navigation {padding-left: 0 !important;}
+#top-menu li a {
+    font-size: 12px !important; /*also set drop-down menu size if applicable*/
+}
+}
+/*reduce font size for retina displays */
+@media 
+only screen and (-webkit-min-device-pixel-ratio: 2),
+only screen and (   min--moz-device-pixel-ratio: 2),
+only screen and (     -o-min-device-pixel-ratio: 2/1),
+only screen and (        min-device-pixel-ratio: 2),
+only screen and (                min-resolution: 192dpi),
+only screen and (                min-resolution: 2dppx)
+{  
+	body {font-size: 90%;}
+}
+
+
+/*
+For portrait: and (orientation : portrait) 
+For landscape: and (orientation : landscape) 
+*/
+
+/* iPhone 12 Mini, iPhone 11 Pro, iPhone Xs, and iPhone X*/
+/* 2340x1080 pixels at 476ppi */
+@media only screen 
+    and (device-width: 375px) 
+    and (device-height: 812px) 
+    and (-webkit-device-pixel-ratio: 3) { }
+
+/* iPhone 12 and iPhone 12 Pro */
+/* 2532x1170 pixels at 460ppi */
+@media only screen 
+    and (device-width: 390px) 
+    and (device-height: 844px) 
+    and (-webkit-device-pixel-ratio: 3) { }
+
+
+/* iPhone 12 Pro Max */
+/* 2778x1284 pixels at 458ppi */
+@media only screen 
+    and (device-width: 428px) 
+    and (device-height: 926px) 
+    and (-webkit-device-pixel-ratio: 3) { }
+
+/* iPhone 11 and iPhone XR */
+/* 1792x828px at 326ppi */
+@media only screen 
+    and (device-width: 414px) 
+    and (device-height: 896px) 
+    and (-webkit-device-pixel-ratio: 2) { }
+
+/* iPhone 12 Mini, iPhone 11 Pro, iPhone Xs, and iPhone X */
+/* 2436x1125px at 458ppi */
+@media only screen 
+    and (device-width: 375px) 
+    and (device-height: 812px) 
+    and (-webkit-device-pixel-ratio: 3) { }
+
+/* iPhone 11 Pro Max and iPhone Xs Max */
+/* 2688x1242px at 458ppi */
+@media only screen 
+    and (device-width: 414px) 
+    and (device-height: 896px) 
+    and (-webkit-device-pixel-ratio: 3) { }
