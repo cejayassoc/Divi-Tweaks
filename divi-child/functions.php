@@ -7,6 +7,9 @@ function your_theme_enqueue_styles()
 }
 add_action('wp_enqueue_scripts', 'your_theme_enqueue_styles');
 
+/***** Disable Automatic Sitemap ****/
+add_filter('wp_sitemaps_enabled', '__return_false');
+
 
 /************** CREATE HELP SECTION, REQUIRES help-template.php *****************/
 function help_support() {
