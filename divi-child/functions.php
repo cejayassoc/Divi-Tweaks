@@ -88,17 +88,17 @@ add_action( 'wp_head', 'cejay_magic_meta');
 
 
 /* ************** function to add async and defer attributes for Divi Theme ************** */
-/*NEVER DEFER OR ASYNC: 'common.js','jquery.js','wp-embed.min.js','functions-init.js','color-picker.min.js',');*/
+/*NEVER DEFER OR ASYNC: 'common.js','jquery.js','wp-embed.min.js','functions-init.js','color-picker.min.js','notices.min.js');*/
 
 function defer_js_async($tag){
 // 1: list of scripts to defer. (Edit with your script names)
-$scripts_to_defer = array('custom.unified.js','woocommerce.min.js','notices.min.js', 'widget.js','recaptcha.js','mediaelement-and-player.min.js','cv.js','jquery-migrate.min.js','wp-embed.min.js','mediaelement-migrate.min.js','wp-mediaelement.min.js','jsapi_compiled_default_module.js','embed.js','search_impl.js','util.js','fbevents.js','identity.js');
+$scripts_to_defer = array('custom.unified.js','widget.js','recaptcha.js','mediaelement-and-player.min.js','cv.js','jquery-migrate.min.js','wp-embed.min.js','mediaelement-migrate.min.js','wp-mediaelement.min.js','waypoints.min.js','jquery.mobile.custom.min.js','smoothscroll.js','scripts.min.js','cvpro.min.js','jsapi_compiled_default_module.js','embed.js','search_impl.js','util.js','fbevents.js','identity.js');
 // 2: list of scripts to async. (Edit with your script names)
-$scripts_to_async = array('es6-promise.auto.min.js', 'recaptcha__en.js','custom.unified.js');
-// 3: additional scripts to defer if user can't edit
+$scripts_to_async = array( 'recaptcha__en.js','custom.unified.js','jquery.js','custom.js','jquery.magnific-popup.js','et_shortcodes_frontend.js','frontend-builder-global-functions.js','jquery.fitvids.js');
+ // 3: additional scripts to defer if user can't edit
  $current_user = wp_get_current_user();
  if ( !(current_user_can('edit_posts')) ){
-	 array_push($scripts_to_defer,"frontend-builder-global-functions.js", "frontend-builder-scripts.js");
+	 array_push($scripts_to_defer,"frontend-builder-global-functions.js", "frontend-builder-scripts.js","jquery.min.js");
  }
 //defer scripts
 foreach($scripts_to_defer as $defer_script){
