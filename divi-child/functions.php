@@ -27,15 +27,6 @@ function help_support() {
 }
 add_action('init', 'help_support');
 
-/*Plugin Name: Add Menu Order to Posts
-Plugin URI: http://pmg.co/category/wordpress
-Description: Adds menu order and template to post types.
-Version: n/a
-Author: Christopher Davis
-Author URI: http://pmg.co/people/chris
-*/
-add_action( 'init', 'wpse31629_init' );
-function wpse31629_init() { add_post_type_support( 'post', 'page-attributes' ); }
 /* **************************** Change default WP sender ************************************ 
 add_filter('wp_mail_from', 'set_default_from_email');
 function set_default_from_email($email){
@@ -51,6 +42,7 @@ function set_default_name($name){
  return $name;
 }
 */
+
 /*function cejay_magic_meta: CREATE META EXCERPT AND TITLE */
 /*META DESCRIPTION: Meta description is created from: */
 /* 1 - using a custom field called "cejay-description */
