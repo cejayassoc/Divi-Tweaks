@@ -90,7 +90,7 @@ $scripts_to_async = array( 'recaptcha__en.js','custom.unified.js','jquery.js','c
  // 3: additional scripts to defer if user can't edit
  $current_user = wp_get_current_user();
  if ( !(current_user_can('edit_posts')) ){
-	 array_push($scripts_to_defer,"frontend-builder-global-functions.js", "frontend-builder-scripts.js","jquery.min.js");
+	 array_push($scripts_to_defer,"frontend-builder-global-functions.js", "frontend-builder-scripts.js");
  }
 //defer scripts
 foreach($scripts_to_defer as $defer_script){
