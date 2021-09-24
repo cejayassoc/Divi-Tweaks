@@ -55,25 +55,27 @@ function set_default_name($name){
 
 
 function cejay_magic_meta() {
-$metas= get_post_custom(get_the_ID());
+	global $post;
+	$cstmMeta=get_post_custom(get_the_ID());
+
 /** DESCRIPTION **/    
-	if($meta_description==$metas['cejay-description']) // Use custom meta
-		{echo '<meta name="description" content="'.$meta_description[0].'" />';}
+	if(isset($cstmMeta['cejay-description'][0])) // Use custom meta
+		{echo '<meta name="description" content="'.$cstmMeta['cejay-description'][0].'" />';}
 	elseif (has_excerpt()) // Use post excerpt if no custom meta
 		{$des_post = strip_tags( get_the_excerpt() );
 		echo '<meta name="description" content="'.$des_post.'" />';}
 	else // Fallback to this description
-		{echo '<meta name="description" content="[fallback description here]" />';}
+		{echo '<meta name="description" content="With 36 Florida 501-C7 yacht club members, FCYC encourages the sport of yachting and club activities while promoting fair boating laws and safety afloat." />';}
 /** TITLE **/	
-	if($meta_title==$metas['cejay-title']) 
-		{echo '<meta name="title" content="'.$meta_title[0].'" />';}
+	if($cstmMeta['cejay-title'][0]!='') 
+		{echo '<meta name="title" content="'.$cstmMeta['cejay-title'][0].'" />';}
 	else  //fall back to the post title
-        {echo '<meta name="title" content="'.esc_html( get_the_title() ).'" />';}		
+        {echo '<meta name="title" content="'.esc_html(get_the_title() ).'" />';}		
 /**KEYWORDS**/    
-    if($meta_title==$metas['cejay-keywords'])
-        {echo '<meta name="keywords" content="'.$meta_title[0].'" />';}	
+    if($cstmMeta['cejay-keywords'][0]!='')
+       {echo '<meta name="keywords" content="'.$cstmMeta['cejay-keywords'][0].'" />';}	
     else  //fallback to these keywords
-    {echo '<meta name="keywords" content="[fallback keywords here]" />';}
+    	 {echo '<meta name="keywords" content="Florida council of yacht clubs, florida yacht clubs, member yacht clubs, marine legislation, boating safety, yacht club, florida" />';}
 
 }
 add_action( 'wp_head', 'cejay_magic_meta');
