@@ -70,29 +70,48 @@ function add_allowed_origins( $origins ) {
 /*META KEYWORDS: is created from the custom field called "cejay-keywords" */
 /* or the default title keyword set in this function is used */
 
-
 function cejay_magic_meta() {
-	global $post;
-	$cstmMeta=get_post_custom(get_the_ID());
+$metas= get_post_custom(get_the_ID());
+	//Set defaults:
+	$title="Bonsai Pots, Trees & Supplies at Wigerts Bonsai, Fort Myers FL";
+	$description= "Established in 2003 Wigert\'s Bonsai is the nations largest full service Tropical Bonsai Nursery. Open to the public 7 days a week. Shipping available nationwide. Shop for Bonsai trees, supplies and the large and most diverse selection of bonsai pots in the country online or in our Ft. Myers FL Nursery.";
+	$keywords="Bonsai,online bonsai, bonsai pots, ponsai plants, pre-bonsai, fort myers, ft myers, florida";
+
+
+/** TITLE **/	
+	if(isset($cstmMeta['cejay-title'][0]) && $cstmMeta['cejay-title'][0]!='') 
+		{$title=$cstmMeta['cejay-title'][0];}
+	elseif(get_the_title())  //fall back to the post title
+        {$title=esc_html( get_the_title() ).' Wigerts Bonsai, Fort Myers FL" />';}	
 
 /** DESCRIPTION **/    
-	if(isset($cstmMeta['cejay-description'][0])) // Use custom meta
-		{echo '<meta name="description" content="'.$cstmMeta['cejay-description'][0].'" />';}
+if(isset($cstmMeta['cejay-description'][0]) && $cstmMeta['cejay-description'][0] !='') // Use custom meta
+		{$description=$cstmMeta['cejay-description'][0];}
 	elseif (has_excerpt()) // Use post excerpt if no custom meta
-		{$des_post = strip_tags( get_the_excerpt() );
-		echo '<meta name="description" content="'.$des_post.'" />';}
-	else // Fallback to this description
-		{echo '<meta name="description" content="With 36 Florida 501-C7 yacht club members, FCYC encourages the sport of yachting and club activities while promoting fair boating laws and safety afloat." />';}
-/** TITLE **/	
-	if($cstmMeta['cejay-title'][0]!='') 
-		{echo '<meta name="title" content="'.$cstmMeta['cejay-title'][0].'" />';}
-	else  //fall back to the post title
-        {echo '<meta name="title" content="'.esc_html(get_the_title() ).'" />';}		
+		{$description= strip_tags( get_the_excerpt() );}
+
 /**KEYWORDS**/    
-    if($cstmMeta['cejay-keywords'][0]!='')
-       {echo '<meta name="keywords" content="'.$cstmMeta['cejay-keywords'][0].'" />';}	
-    else  //fallback to these keywords
-    	 {echo '<meta name="keywords" content="Florida council of yacht clubs, florida yacht clubs, member yacht clubs, marine legislation, boating safety, yacht club, florida" />';}
+  if($cstmMeta['cejay-keywords'][0]!='')
+       {$keywords=$cstmMeta['cejay-keywords'][0];}	
+
+/** Set WooCommerce product pages and titles **/
+global $product;
+	
+// If the product object is not defined, we get it from the product ID
+    if ( ! is_a($product, 'WC_Product') && get_post_type($id) === 'product' ) {
+        $product = wc_get_product($id);
+    }
+	
+if( $product = wc_get_product( get_the_id() ))
+   {$prodname=$product->get_name();
+	$prodDesc=$product->get_short_description();
+	if($prodname!='') {$title=$prodname;}
+	if($prodDesc!='') {$description=$prodDesc;}
+   }
+	
+	echo '<meta name="title" content="'.$title.'" />';
+	echo '<meta name="description" content="'.$description.'" />';
+	echo '<meta name="keywords" content="'.$keywords.'" />';
 
 }
 add_action( 'wp_head', 'cejay_magic_meta');
@@ -124,5 +143,20 @@ foreach($scripts_to_async as $async_script){
 return $tag;
 }
 add_filter( 'script_loader_tag', 'defer_js_async', 10 );
+
+
+/**************** WooCommerce Scripts *****************/
+/*put out of stock items at the bottom of search results, respective of current searh paramaters. Exclude for admins */
+add_filter( 'woocommerce_get_catalog_ordering_args', 'mihanwp_sort_by_stock', 9999 );
+ 
+function mihanwp_sort_by_stock( $args ) {
+	if(is_search()) //disable sort for admins
+	{
+   $args['orderby'] = 'meta_value';
+   $args['order'] = 'ASC';
+   $args['meta_key'] = '_stock_status';
+   return $args;
+	}
+}
 
 
