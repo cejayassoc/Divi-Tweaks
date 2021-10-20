@@ -59,7 +59,6 @@ function add_allowed_origins( $origins ) {
     return $origins;
 }
 
-
 /*function cejay_magic_meta: CREATE META EXCERPT AND TITLE */
 /*META DESCRIPTION: Meta description is created from: */
 /* 1 - using a custom field called "cejay-description */
@@ -73,16 +72,16 @@ function add_allowed_origins( $origins ) {
 function cejay_magic_meta() {
 $metas= get_post_custom(get_the_ID());
 	//Set defaults:
-	$title="Bonsai Pots, Trees & Supplies at Wigerts Bonsai, Fort Myers FL";
-	$description= "Established in 2003 Wigert\'s Bonsai is the nations largest full service Tropical Bonsai Nursery. Open to the public 7 days a week. Shipping available nationwide. Shop for Bonsai trees, supplies and the large and most diverse selection of bonsai pots in the country online or in our Ft. Myers FL Nursery.";
-	$keywords="Bonsai,online bonsai, bonsai pots, ponsai plants, pre-bonsai, fort myers, ft myers, florida";
+	$title="Charlotte Local Education Foundation, Charlotte County FL";
+	$description= "Helping Charlotte County students reach their full potential is what the Education Foundation is all about. We bring resources and people together to support and enhance education for our students. Through financial resources, mentoring, and goal setting, we are helping young leaders improve the world around them and building a stronger community for all of us.";
+	$keywords="CLEF,Charlotte Local Education Foundation, Take Stock in Children, Golden Apple Awards, Teacher of the Year, Support Employee of the Year, Mentors, Scholarships,Teacher Supply Depot" ;
 
 
 /** TITLE **/	
 	if(isset($cstmMeta['cejay-title'][0]) && $cstmMeta['cejay-title'][0]!='') 
 		{$title=$cstmMeta['cejay-title'][0];}
 	elseif(get_the_title())  //fall back to the post title
-        {$title=esc_html( get_the_title() ).' Wigerts Bonsai, Fort Myers FL" />';}	
+        {$title=esc_html( get_the_title() );}	
 
 /** DESCRIPTION **/    
 if(isset($cstmMeta['cejay-description'][0]) && $cstmMeta['cejay-description'][0] !='') // Use custom meta
@@ -93,25 +92,23 @@ if(isset($cstmMeta['cejay-description'][0]) && $cstmMeta['cejay-description'][0]
 /**KEYWORDS**/    
   if($cstmMeta['cejay-keywords'][0]!='')
        {$keywords=$cstmMeta['cejay-keywords'][0];}	
+/*** Featured Image for Open Graph Meta **/
+	global $post;
+    $post_thumbnail_id = get_post_thumbnail_id( $post );
+ 
+    if ( $imageURL=wp_get_attachment_image_url( $post_thumbnail_id, $size ))
+		{echo '<meta property="og:image" content="'.$imageURL.'" />';}
+	else 
+		{echo '<meta property="og:image" content="https://charlotteschoolfoundation.org/wp-content/uploads/2018/10/CLEF-2019Logo2.jpg" />';}
+	
 
-/** Set WooCommerce product pages and titles **/
-global $product;
-	
-// If the product object is not defined, we get it from the product ID
-    if ( ! is_a($product, 'WC_Product') && get_post_type($id) === 'product' ) {
-        $product = wc_get_product($id);
-    }
-	
-if( $product = wc_get_product( get_the_id() ))
-   {$prodname=$product->get_name();
-	$prodDesc=$product->get_short_description();
-	if($prodname!='') {$title=$prodname;}
-	if($prodDesc!='') {$description=$prodDesc;}
-   }
 	
 	echo '<meta name="title" content="'.$title.'" />';
+	echo '<meta property="og:title" content="'.$title.'" />';
 	echo '<meta name="description" content="'.$description.'" />';
+	echo '<meta property="og:description" content="'.$description.'" />';
 	echo '<meta name="keywords" content="'.$keywords.'" />';
+	
 
 }
 add_action( 'wp_head', 'cejay_magic_meta');
