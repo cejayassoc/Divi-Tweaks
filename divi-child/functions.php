@@ -115,7 +115,8 @@ add_action( 'wp_head', 'cejay_magic_meta');
 
 
 /* ************** function to add async and defer attributes for Divi Theme ************** */
-/*NEVER DEFER OR ASYNC: 'common.js','jquery.js','wp-embed.min.js','functions-init.js','color-picker.min.js','notices.min.js');*/
+/*NEVER DEFER OR ASYNC: common.js, jquery.js, wp-embed.min.js, functions-init.js, color-picker.min.js, notices.min.js (blocks widgets)
+BLOCKS HUSTLE when async/defer: underscore.min.js*/
 
 function defer_js_async($tag){
 // 1: list of scripts to defer. (Edit with your script names)
