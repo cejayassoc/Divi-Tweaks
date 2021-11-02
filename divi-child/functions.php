@@ -72,9 +72,9 @@ function add_allowed_origins( $origins ) {
 function cejay_magic_meta() {
 $metas= get_post_custom(get_the_ID());
 	//Set defaults:
-	$title="Charlotte Local Education Foundation, Charlotte County FL";
-	$description= "Helping Charlotte County students reach their full potential is what the Education Foundation is all about. We bring resources and people together to support and enhance education for our students. Through financial resources, mentoring, and goal setting, we are helping young leaders improve the world around them and building a stronger community for all of us.";
-	$keywords="CLEF,Charlotte Local Education Foundation, Take Stock in Children, Golden Apple Awards, Teacher of the Year, Support Employee of the Year, Mentors, Scholarships,Teacher Supply Depot" ;
+	$title="";
+	$description= "";
+	$keywords="" ;
 
 
 /** TITLE **/	
@@ -99,7 +99,7 @@ if(isset($cstmMeta['cejay-description'][0]) && $cstmMeta['cejay-description'][0]
     if ( $imageURL=wp_get_attachment_image_url( $post_thumbnail_id, $size ))
 		{echo '<meta property="og:image" content="'.$imageURL.'" />';}
 	else 
-		{echo '<meta property="og:image" content="https://charlotteschoolfoundation.org/wp-content/uploads/2018/10/CLEF-2019Logo2.jpg" />';}
+		{echo '<meta property="og:image" content="" />';}
 	
 
 	
@@ -116,11 +116,12 @@ add_action( 'wp_head', 'cejay_magic_meta');
 
 /* ************** function to add async and defer attributes for Divi Theme ************** */
 /*NEVER DEFER OR ASYNC: common.js, jquery.js, wp-embed.min.js, functions-init.js, color-picker.min.js, notices.min.js (blocks widgets)
-BLOCKS HUSTLE when async/defer: underscore.min.js*/
+BLOCKS HUSTLE when async/defer: underscore.min.js
+INTERFERES WITH DIVI'S GOOGLE MAP MODULE custom.unified.js */
 
 function defer_js_async($tag){
 // 1: list of scripts to defer. (Edit with your script names)
-$scripts_to_defer = array('custom.unified.js','widget.js','recaptcha.js','mediaelement-and-player.min.js','cv.js','jquery-migrate.min.js','wp-embed.min.js','mediaelement-migrate.min.js','wp-mediaelement.min.js','waypoints.min.js','jquery.mobile.custom.min.js','smoothscroll.js','scripts.min.js','cvpro.min.js','jsapi_compiled_default_module.js','embed.js','search_impl.js','util.js','fbevents.js','identity.js');
+$scripts_to_defer = array('widget.js','recaptcha.js','mediaelement-and-player.min.js','cv.js','jquery-migrate.min.js','wp-embed.min.js','mediaelement-migrate.min.js','wp-mediaelement.min.js','waypoints.min.js','jquery.mobile.custom.min.js','smoothscroll.js','scripts.min.js','cvpro.min.js','jsapi_compiled_default_module.js','embed.js','search_impl.js','util.js','fbevents.js','identity.js');
 // 2: list of scripts to async. (Edit with your script names)
 $scripts_to_async = array( 'recaptcha__en.js','custom.unified.js','jquery.js','custom.js','jquery.magnific-popup.js','et_shortcodes_frontend.js','frontend-builder-global-functions.js','jquery.fitvids.js');
  // 3: additional scripts to defer if user can't edit
