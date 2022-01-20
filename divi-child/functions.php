@@ -75,6 +75,7 @@ $metas= get_post_custom(get_the_ID());
 	$title="";
 	$description= "";
 	$keywords="" ;
+	$imageURL="" ;
 
 
 /** TITLE **/	
