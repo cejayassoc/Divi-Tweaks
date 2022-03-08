@@ -6,7 +6,25 @@ function your_theme_enqueue_styles()
     wp_enqueue_style( 'child-style',       get_stylesheet_directory_uri() . '/style.css',      array($parent_style),       wp_get_theme()->get('Version')    );
 }
 add_action('wp_enqueue_scripts', 'your_theme_enqueue_styles');
+/******************** NEW DIVI CUSTOM FOOTER CREDITS ***************************/
+/** Only edit the variable $startYear. Enter the starting year **/
+/** comany name name goes in  Divi Customizer -> Footer -> Bottom Bar -> Edit Footer Credits /**
+/** credits add by {company}. All Rights Reserved. and CeJay link */
+function et_get_footer_credits() {
+	$original_footer_credits = et_get_original_footer_credits();
+	$disable_custom_credits = et_get_option( 'disable_custom_footer_credits', false );
+	if ( $disable_custom_credits ) {return '';}
+	$credits_format = '<%2$s id="footer-info">%1$s</%2$s>';
+//EDIT THE LINE BELOW
+//ORIGINAL	$footer_credits = et_get_option( 'custom_footer_credits', '' );
+	$startYear ="2014";// put start year for Copyright here
+	$footer_credits = "Copyright&copy; $startYear - " . date_i18n('Y') . " " .et_get_option( 'custom_footer_credits', '' );
 
+	if ( '' === trim( strval( $footer_credits ) ) ) { // phpcs:ignore Generic.WhiteSpace.ScopeIndent.IncorrectExact -- We decided to ignore indentation change.
+		return et_get_safe_localization( sprintf( $credits_format, $original_footer_credits, 'p' ) );
+	}
+	return et_get_safe_localization( sprintf( $credits_format, $footer_credits, 'div' ) );
+}
 /***** Disable Automatic Sitemap ****/
 add_filter('wp_sitemaps_enabled', '__return_false');
 
