@@ -1,3 +1,11 @@
+# Block WordPress xmlrpc.php requests
+# Important! Change xxx.xxx.xxx.xxx to IP address you wish to allow access xmlrpc.php or remove this line completely.
+<Files xmlrpc.php>
+order deny,allow
+deny from all
+allow from xxx.xxx.xxx.xxx
+</Files>
+
 
 ## Add gzip compression to all file type ##
 <IfModule mod_deflate.c>
