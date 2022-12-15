@@ -113,20 +113,16 @@ if(isset($cstmMeta['cejay-description'][0]) && $cstmMeta['cejay-description'][0]
        {$keywords=$cstmMeta['cejay-keywords'][0];}	
 /*** Featured Image for Open Graph Meta **/
 	global $post;
-    $post_thumbnail_id = get_post_thumbnail_id( $post );
- 
-    if ( $imageURL=wp_get_attachment_image_url( $post_thumbnail_id, $size ))
-		{echo '<meta property="og:image" content="'.$imageURL.'" />';}
-	else 
-		{echo '<meta property="og:image" content="" />';}
+    	$post_thumbnail_id = get_post_thumbnail_id( $post );
+	echo '<meta property="og:image" content="'; wp_get_attachment_image_url( $post_thumbnail_id, $size ); echo $imageURL.'" />';echo "\r\n";     
 	
-
-	
-	echo '<meta name="title" content="'.$title.'" />';
-	echo '<meta property="og:title" content="'.$title.'" />';
-	echo '<meta name="description" content="'.$description.'" />';
-	echo '<meta property="og:description" content="'.$description.'" />';
-	echo '<meta name="keywords" content="'.$keywords.'" />';
+	echo '<meta property="og:type" content="article" />'; echo "\r\n";
+	echo '<meta name="title" content="'.$title.'" />'; echo "\r\n";
+	echo '<meta property="og:title" content="'.$title.'" />';echo "\r\n";
+	echo '<meta property="og:url"  content="'; the_permalink(); echo '" />';echo "\r\n";
+	echo '<meta name="description" content="'.$description.'" />';echo "\r\n";
+	echo '<meta property="og:description" content="'.$description.'" />';echo "\r\n";
+	echo '<meta name="keywords" content="'.$keywords.'" />';echo "\r\n";
 	
 
 }
