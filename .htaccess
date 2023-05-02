@@ -8,6 +8,12 @@ allow from xxx.xxx.xxx.xxx
 
 
 ## Add gzip compression to all file type ##
+## Add gzip compression to all file type ##
+<IfModule mod_headers.c>
+  <FilesMatch ".(js|css|xml|gz|html)$">
+    Header append Vary: Accept-Encoding
+  </FilesMatch>
+</IfModule>
 <IfModule mod_deflate.c>
   # Compress HTML, CSS, JavaScript, Text, XML and fonts
   AddOutputFilterByType DEFLATE application/javascript
