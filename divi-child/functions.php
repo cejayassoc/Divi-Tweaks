@@ -88,15 +88,14 @@ function add_allowed_origins( $origins ) {
 /* or the default title keyword set in this function is used */
 
 function cejay_magic_meta() {
-global $post;
-$metas= get_post_custom(get_the_ID());
-
+	//get global values
+	global $post;
+	$metas= get_post_custom(get_the_ID());
 	//Set defaults:
-	$post_thumbnail_id = get_post_thumbnail_id( $post );
 	$title="";
-	$description= "";
-	$imageURL="" ;
-
+	$description="";
+    	$defImg="";
+    	$pageURL=get_permalink($post);
 
 /** TITLE **/	
 	if(isset($cstmMeta['cejay-title'][0]) && $cstmMeta['cejay-title'][0]!='') 
@@ -109,20 +108,31 @@ if(isset($cstmMeta['cejay-description'][0]) && $cstmMeta['cejay-description'][0]
 		{$description=$cstmMeta['cejay-description'][0];}
 	elseif (has_excerpt()) // Use post excerpt if no custom meta
 		{$description= strip_tags( get_the_excerpt() );}
+	
+/*** Featured Image **/	
+    $post_thumbnail_id = get_post_thumbnail_id( $post );
+   $imageURL=wp_get_attachment_image_url( $post_thumbnail_id ) ;
+   if(isset($imageURL) && $imageURL==''){$imageURL=$defImg;}
+	
+echo '<meta name="description" content="'.$description.'" />';
+echo "\r\n";
+echo '<meta name="title" content="'.$title.'" />';
+echo "\r\n";
+echo '<meta property="og:title" content="'.$title.'" />';
+echo "\r\n";  //Text that appears in preview
+echo '<meta property="og:type" content="website" />';
+echo "\r\n"; //or audio, video, etc
+echo '<meta property="og:url"  content="'.$pageURL. '" />';
+echo "\r\n"; //link to this page or article
+echo '<meta property="og:image" content="'. $imageURL.'" />';
+echo "\r\n"; 
+echo '<meta property="og:description" content="'.$description.'" />';
+echo "\r\n";
+echo '<meta prooperty="og:local" content="en_us" />';
+echo "\r\n";
+echo '<meta property="og:site_name" content="'.get_bloginfo('name').'" />';
+echo "\r\n";
 
-/**KEYWORDS - NOT USED, GOOGLE IGNORES THEM AND OTHER BROWSERS CONSIDER IT SPAM.**/      
-	
-	echo '<meta name="description" content="'.$description.'" />';echo "\r\n";
-	echo '<meta name="title" content="'.$title.'" />'; echo "\r\n";
-	
-	echo '<meta property="og:title" content="'.$title.'" />';echo "\r\n";  //Text that appears in preview
-	echo '<meta property="og:type" content="website" />';echo "\r\n"; //or audio, video, etc
-	echo '<meta property="og:url"  content="'; the_permalink(); echo '" />';echo "\r\n"; //link to this page or article
-	echo '<meta property="og:image" content="'; wp_get_attachment_image_url( $post_thumbnail_id, $size ); echo $imageURL.'" />';echo "\r\n"; 
-	echo '<meta property="og:description" content="'.$description.'" />';echo "\r\n";
-	echo '<meta prooperty="og:local" content="en_us" />';echo "\r\n";
-	echo '<meta property="og:site_name" content="'.get_bloginfo('name').'" />';echo "\r\n";
-	
 
 }
 add_action( 'wp_head', 'cejay_magic_meta');
