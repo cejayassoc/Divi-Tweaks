@@ -111,7 +111,7 @@ if(isset($cstmMeta['cejay-description'][0]) && $cstmMeta['cejay-description'][0]
 	
 /*** Featured Image **/	
     $post_thumbnail_id = get_post_thumbnail_id( $post );
-   $imageURL=wp_get_attachment_image_url( $post_thumbnail_id ) ;
+   $imageURL=wp_get_attachment_image_url( $post_thumbnail_id, 'full' ) ;
    if(isset($imageURL) && $imageURL==''){$imageURL=$defImg;}
 	
 echo '<meta name="description" content="'.$description.'" />';
