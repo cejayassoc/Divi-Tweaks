@@ -9,12 +9,23 @@ Version: 2.0
 
 /* RESPONSIVE HEADER FIX DIVI 3.x.x */
 
-@media screen and (min-width:980px) and (max-width: 1226px) 
-{ 
- #logo { max-width: 50% !important;}
- #top-menu-navigation {max-width: 90%;}
- .et_header_style_left #et-top-navigation nav > ul > li > a {padding-bottom: 15px;}
+@media screen and (max-width: 1160px) /*adjust per website*/
+{
+	.et_header_style_left #et-top-navigation nav > ul > li > a, .et_header_style_split #et-top-navigation nav > ul > li > a 
+		{padding-bottom: 1em;}
+	nav#top-menu-nav 
+		{padding-left: 2%;}
 }
+@media screen and (max-width: 1084px) /*adjust per website*/
+{	
+	#logo{
+		max-width: 16% ;/*adjust per website*/
+		max-height: 94%;
+		height: auto;
+		width: auto;
+		}
+}
+
 @media screen and (max-width: 980px){
 	.et_mobile_menu li a {
     padding: 7px 5%;
