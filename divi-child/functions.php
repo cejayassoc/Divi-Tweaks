@@ -44,7 +44,26 @@ function help_support() {
 	register_post_type( 'help' , $args );
 }
 add_action('init', 'help_support');
-
+/********** CVPro - Show PDF media as embed object instead of icon  **********/
+/* @since 3.9.7 */
+add_filter( 'pt_cv_attachment_thumbnail', 'cvp_attachment_thumbnail', 100, 3 );
+function cvp_attachment_thumbnail( $attachment, $post, $dimensions ) {
+	$pdf = wp_get_attachment_url( $post->ID );
+	if ( preg_match( '/\.pdf$/', $pdf ) ) {
+		$attachment = str_replace( '__CVFILE__', $pdf, '<object data="__CVFILE__" type="application/pdf" width="100%" height="100%"><p>This browser does not support PDFs. <a style="text-decoration: underline;" href="__CVFILE__">Click Here to download this pdf</a>.</p></object>
+' );
+	}
+	return $attachment;
+}
+// Content Views Pro - add Title attribute to links
+add_filter( 'pt_cv_field_href_attrs', 'cvp_theme_add_title_to_links', 100, 3 );
+function cvp_theme_add_title_to_links( $custom_attr, $open_in, $oargs = array() ) {
+	global $post;
+	if ( isset( $post->post_title ) ) {
+		$custom_attr[] = 'title="' . esc_attr( $post->post_title ) . '"';
+	}
+	return $custom_attr;
+}
 /* **************************** Change default WP sender ************************************ 
 add_filter('wp_mail_from', 'set_default_from_email');
 function set_default_from_email($email){
