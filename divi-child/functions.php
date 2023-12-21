@@ -17,7 +17,7 @@ function et_get_footer_credits() {
 	$credits_format = '<%2$s id="footer-info">%1$s</%2$s>';
 //EDIT THE LINE BELOW
 //ORIGINAL	$footer_credits = et_get_option( 'custom_footer_credits', '' );
-	$startYear ="2014";// put start year for Copyright here
+	$startYear ="";// put start year for Copyright here
 	$footer_credits = "Copyright&copy; $startYear - " . date_i18n('Y') . " " .et_get_option( 'custom_footer_credits', '' );
 
 	if ( '' === trim( strval( $footer_credits ) ) ) { // phpcs:ignore Generic.WhiteSpace.ScopeIndent.IncorrectExact -- We decided to ignore indentation change.
@@ -79,22 +79,7 @@ function set_default_name($name){
  return $name;
 }
 */
-/************** ENABLE CORS  *****************/
 
-add_filter( 'allowed_http_origins', 'add_allowed_origins' );
-function add_allowed_origins( $origins ) {
-/* allow origins from ssl and non-ssl addresses */
-    $origins[] = 'http://MyWebsite.com';
-    $origins[] = 'https://MyWebsite.com';    
-/*allow origins from specific supdomain with or without SSL */
-    $origins[] = 'http://subdomain.MyWebsite.com';
-	$origins[] = 'https://subdomain.MyWebsite.com';
-/*allow these specific origins */	
-	$origins[] = 'https://reputationdatabase.com';
-	$origins[] = 'https://www.youtube-nocookie.com';
-	$origins[] = 'https://googleads.g.doubleclick.net/pagead/id';
-    return $origins;
-}
 
 /*function cejay_magic_meta: CREATE META EXCERPT AND TITLE */
 /*META DESCRIPTION: Meta description is created from: */
@@ -156,12 +141,46 @@ echo "\r\n";
 }
 add_action( 'wp_head', 'cejay_magic_meta');
 
+  /** Featured image to RSS Feed   */
+    function dn_add_rss_image() {
+        global $post;
+    
+        $output = '';
+        if ( has_post_thumbnail( $post->ID ) ) {
+            $thumbnail_ID = get_post_thumbnail_id( $post->ID );
+            $thumbnail = wp_get_attachment_image_src( $thumbnail_ID, 'full' ); /** 'full' can be changed to 'medium' or 'thumbnail' */
+    
+            $output .= '<media:content xmlns:media="http://search.yahoo.com/mrss/" medium="image" type="image/jpeg"';
+            $output .= ' url="'. $thumbnail[0] .'"';
+            $output .= ' width="100%"'; /** here you can add styles */
+            $output .= ' object-fit="cover"';
+            $output .= ' />';
+        }
+        echo $output;
+    }
+add_action( 'rss2_item', 'dn_add_rss_image' );
+/************** ENABLE CORS  ****************
+
+add_filter( 'allowed_http_origins', 'add_allowed_origins' );
+function add_allowed_origins( $origins ) {
+// allow origins from ssl and non-ssl addresses 
+    $origins[] = 'http://MyWebsite.com';
+    $origins[] = 'https://MyWebsite.com';    
+// allow origins from specific supdomain with or without SSL 
+    $origins[] = 'http://subdomain.MyWebsite.com';
+	$origins[] = 'https://subdomain.MyWebsite.com';
+// allow these specific origins 
+	$origins[] = 'https://reputationdatabase.com';
+	$origins[] = 'https://www.youtube-nocookie.com';
+	$origins[] = 'https://googleads.g.doubleclick.net/pagead/id';
+    return $origins;
+} */
 
 /* ************** function to add async and defer attributes for Divi Theme ************** */
 /*NEVER DEFER OR ASYNC: common.js, jquery.js, wp-embed.min.js, functions-init.js, color-picker.min.js, notices.min.js (blocks widgets)
 BLOCKS HUSTLE when async/defer: underscore.min.js*/
 /* DO NOT DEFERE, ASYNC OKAY, INTERFERE'S WITH: */
-/* Divi's Google Map Module: custom.unified.js */
+/* Divi's Google Map Module: custom.unified.js 
 
 function defer_js_async($tag){
 // 1: list of scripts to defer. (Edit with your script names)
@@ -187,9 +206,9 @@ return $tag;
 }
 add_filter( 'script_loader_tag', 'defer_js_async', 10 );
 
-
+*/
 /**************** WooCommerce Scripts *****************/
-/*put out of stock items at the bottom of search results, respective of current searh paramaters. Exclude for admins */
+/*put out of stock items at the bottom of search results, respective of current searh paramaters. Exclude for admins 
 add_filter( 'woocommerce_get_catalog_ordering_args', 'mihanwp_sort_by_stock', 9999 );
  
 function mihanwp_sort_by_stock( $args ) {
@@ -200,6 +219,4 @@ function mihanwp_sort_by_stock( $args ) {
    $args['meta_key'] = '_stock_status';
    return $args;
 	}
-}
-
-
+} */
